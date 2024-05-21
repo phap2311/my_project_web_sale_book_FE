@@ -6,6 +6,7 @@ const BookDetail = () => {
     const [bookDetail, setBookDetail] = useState();
     const [count, setCount] = useState(0);
     const {id} = useParams();
+
     useEffect(() => {
         getAllBookDetail();
     }, []);
@@ -26,6 +27,9 @@ const BookDetail = () => {
     const decrease = () => {
         setCount(count - 1);
     }
+
+
+
     return (
         <>
             <div className="container mt-4">
@@ -87,6 +91,7 @@ const BookDetail = () => {
                                 <div>Freeship nội thành Sài Gòn từ 150.000đ*.</div>
                                 <div>Freeship toàn quốc từ 250.000đ</div>
                                 <button><Link to={`/editBook/${id}`} >Edit</Link></button>
+
                             </div>
                         </div>
                     </div>

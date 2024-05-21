@@ -41,3 +41,13 @@ export const editBook = async (book) => {
         throw error;
     }
 }
+export const deleteBook = async (id) => {
+
+    try {
+        const res = await axios.delete(`http://localhost:8080/api/books/delete/${id}`);
+        return res.data;
+    } catch (error) {
+        console.error("Error fetching books detail:", error);
+        throw error;
+    }
+}
