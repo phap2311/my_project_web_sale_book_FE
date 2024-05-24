@@ -5,6 +5,7 @@ import "bootstrap/dist/css/bootstrap.min.css"
 import BookDetail from "./components/book/BookDetail";
 import BookCreate from "./components/book/BookCreate";
 import BookUpdate from "./components/book/BookUpdate";
+import Cart from "./components/cart/Cart";
 
 function App() {
     return (
@@ -14,6 +15,7 @@ function App() {
                 <Route path={"/book/:id"} element={<BookDetail/>}></Route>
                 <Route path={"/createBook"} element={<BookCreate/>}></Route>
                 <Route path={"/editBook/:id"} element={<BookUpdate/>}></Route>
+                <Route path={"/cart/:accountId"} element={<Cart/>}></Route>
             </Routes>
         </div>
     );

@@ -1,11 +1,15 @@
 import {useEffect, useState} from "react";
-import {Link, useParams} from "react-router-dom";
+import {Link, useNavigate, useParams} from "react-router-dom";
 import {findBookDetailById} from "../../service/BookService";
+import {createCart, findAllCart} from "../../service/CartService";
 
 const BookDetail = () => {
     const [bookDetail, setBookDetail] = useState();
     const [count, setCount] = useState(0);
     const {id} = useParams();
+    const navigate = useNavigate();
+    //const {accountId} = useParams() ;
+
 
     useEffect(() => {
         getAllBookDetail();
@@ -25,9 +29,20 @@ const BookDetail = () => {
         setCount(count + 1);
     }
     const decrease = () => {
-        setCount(count - 1);
+        if (count > 1) {
+            setCount(count - 1);
+        }
     }
+    const handleAddToCart = () => {
+        const accountId = 1;
+        createCart(accountId, id, count).then((res) => {
+            console.log("Added to cart successfully");
+            navigate(`/cart/${accountId}`)
 
+        }).catch((error) => {
+            console.error("Error adding to cart:", error);
+        });
+    }
 
 
     return (
@@ -66,38 +81,39 @@ const BookDetail = () => {
                                 </div>
                                 <div className="row mt-4 ">
                                     Số lượng:
-                                        <div className='col-2'>
-                                            <button onClick={increase}>+</button>
-                                        </div>
-                                        <div className="col-2" style={{fontSize: 30,color: "orange"}}>
-                                            {count}
-                                        </div>
-                                        <div className="col-3">
-                                            <button onClick={decrease}>-</button>
-                                        </div>
+                                    <div className='col-2'>
+                                        <button onClick={increase}>+</button>
+                                    </div>
+                                    <div className="col-2" style={{fontSize: 30, color: "orange"}}>
+                                        {count}
+                                    </div>
+                                    <div className="col-3">
+                                        <button onClick={decrease}>-</button>
+                                    </div>
 
                                 </div>
                                 <div className="row mt-2">
                                     <div className="col-6">
-                                        <button>THÊM VÀO GIỎ HÀNG</button>
+                                        <button onClick={handleAddToCart}>THÊM VÀO GIỎ HÀNG</button>
                                     </div>
                                     <div className="col-6">
                                         <button>MUA NGAY</button>
                                     </div>
                                 </div>
-                                <div>Gọi đặt hàng ngay: <span style={{color:"orange"}}>0963258258</span>  hoặc <span style={{color:"orange"}}>0933109109</span> </div>
+                                <div>Gọi đặt hàng ngay: <span style={{color: "orange"}}>0963258258</span> hoặc <span
+                                    style={{color: "orange"}}>0933109109</span></div>
                                 <h4 className="mt-4">Thông tin & khuyến mãi</h4>
                                 <div>Đổi trả hàng trong vòng 7 ngày</div>
                                 <div>Freeship nội thành Sài Gòn từ 150.000đ*.</div>
                                 <div>Freeship toàn quốc từ 250.000đ</div>
-                                <button><Link to={`/editBook/${id}`} >Edit</Link></button>
+                                <button><Link to={`/editBook/${id}`}>Edit</Link></button>
 
                             </div>
                         </div>
                     </div>
                 </div>
                 <h2 className="mt-4">
-                   Giới thiệu sản phẩm
+                    Giới thiệu sản phẩm
                 </h2>
                 <div className="text-center" style={{fontSize: 30, color: "red"}}>{bookDetail && bookDetail.name}</div>
                 <div>
