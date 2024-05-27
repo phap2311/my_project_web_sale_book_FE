@@ -44,6 +44,9 @@ const BookDetail = () => {
         });
     }
 
+    const formatPrice = (price) => {
+        return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + " đ";
+    };
 
     return (
         <>
@@ -77,7 +80,7 @@ const BookDetail = () => {
                                 </div>
                                 <div className="mb-3">
                                     <p className="form-label"
-                                       style={{fontSize: 30, color: "orange"}}>{bookDetail && bookDetail.price}đ</p>
+                                       style={{fontSize: 30, color: "orange"}}>{bookDetail && formatPrice(bookDetail.price)}đ</p>
                                 </div>
                                 <div className="row mt-4 ">
                                     Số lượng:

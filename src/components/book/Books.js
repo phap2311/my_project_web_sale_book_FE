@@ -26,6 +26,9 @@ const Books = () => {
             getAllBooks()
         })
     }
+    const formatPrice = (price) => {
+        return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + " đ";
+    };
 
     return (
         <>
@@ -54,14 +57,16 @@ const Books = () => {
                                     <div className="card-body">
 
                                         <h5 className="card-title">{item.name}</h5>
-                                        <p className="card-text"> {item.price} đ</p>
+                                        <p className="card-text">{formatPrice(item.price)}</p>
+                                        {/*<p className="card-text"> {item.price} đ</p>*/}
 
                                     </div>
                                 </div>
                             </Link>
                             <button className="btn-warning" onClick={
                                 () => handleShowModalDelete(item.id)
-                            }>delete</button>
+                            }>delete
+                            </button>
                             <BookDelete show={show} setShow={setShow} onDeleteHandler={onDeleteHandler}/>
 
                             <div className="card-footer">

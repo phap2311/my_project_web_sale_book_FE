@@ -27,3 +27,21 @@ export const findAllCart = async (accountId) => {
         throw error;
     }
 }
+export const findAllMoney  = async (accountId) => {
+    try {
+        const res = await axios.get(`http://localhost:8080/api/cart/total/${accountId}`);
+        return res.data;
+    } catch (error) {
+        console.error("Error fetching total money:", error);
+        throw error;
+    }
+}
+export const removeBooksToCart  = async (cartId,bookId) => {
+    try {
+        const res = await axios.delete(`http://localhost:8080/api/cart/${cartId}/books/${bookId}`);
+        return res.data;
+    } catch (error) {
+        console.error("Error fetching total money:", error);
+        throw error;
+    }
+}
