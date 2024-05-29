@@ -36,9 +36,10 @@ export const findAllMoney  = async (accountId) => {
         throw error;
     }
 }
-export const removeBooksToCart  = async (cartId,bookId) => {
+export const removeBooksToCart  = async (id) => {
+
     try {
-        const res = await axios.delete(`http://localhost:8080/api/cart/${cartId}/books/${bookId}`);
+        const res = await axios.delete(`http://localhost:8080/api/cart/${id}`);
         return res.data;
     } catch (error) {
         console.error("Error fetching total money:", error);

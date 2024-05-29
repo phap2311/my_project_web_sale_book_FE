@@ -18,9 +18,7 @@ const validate = Yup.object().shape({
 });
 const BookUpdate = ()=>{
     const [uploading, setUploading] = useState(false);
-
     const {id} = useParams();
-
     const [categories, setCategories] = useState();
     const [imagePreview, setImagePreview] = useState(null);
     const navigate = useNavigate();

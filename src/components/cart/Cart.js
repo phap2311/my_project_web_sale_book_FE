@@ -1,14 +1,15 @@
 import {useEffect, useState} from "react";
 import {findAllCart, findAllMoney, removeBooksToCart} from "../../service/CartService";
 import "./Cart.css"
-import BookDelete from "../book/BookDelete";
 import CartDelete from "./CartDelete";
+import {useParams} from "react-router-dom";
 
 
 const Cart = () => {
     const [cartItem, setCartItem] = useState([]);
     const [totalMoney, setTotalMoney] = useState();
-    const accountId = 1;
+   const {accountId} = useParams();
+    //const accountId = 1;
     const [isDelete, setIsDelete] = useState();
     const [show, setShow] = useState(false);
 
@@ -41,17 +42,14 @@ const Cart = () => {
     const formatPrice = (total_price, totalMoney) => {
         return total_price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + " đ";
     };
-    const handleShowModalDelete = (bookId, cartId) => {
-        setIsDelete({bookId ,cartId });
+    const handleShowModalDelete = (id) => {
+        setIsDelete(id);
         setShow(true);
 
     }
 
     const handleRemoveBookFromCart = () => {
-        const { bookId, cartId } = isDelete;
-
-        if (bookId && cartId) {
-            removeBooksToCart(cartId, bookId).then(() => {
+            removeBooksToCart(isDelete).then((res) => {
                 getCartItems();
                 getTotalMoney();
                 setShow(false);
@@ -59,9 +57,7 @@ const Cart = () => {
             }).catch((error) => {
                 console.error("Error removing book from cart:", error);
             });
-        } else {
-            console.error("Invalid bookId or cartId");
-        }
+
     };
 
     return (
@@ -97,7 +93,7 @@ const Cart = () => {
                                                     <p>Ngày mua: {item.date_purchase}</p>
                                                     <div>
                                                         <button style={{background:"orange"}} className="btn-warning" onClick={
-                                                            () => handleShowModalDelete(item.bookId, item.cartId)
+                                                            () => handleShowModalDelete(item.id)
                                                         }>Xóa
                                                         </button>
                                                     </div>
