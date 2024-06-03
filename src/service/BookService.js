@@ -1,5 +1,7 @@
 import axios from "axios";
 
+
+
 export const findAllBook = async () => {
 
     try {
@@ -21,9 +23,28 @@ export const findBookDetailById = async (id) => {
         throw error;
     }
 }
+
+const token = localStorage.getItem("authToken");
+//axios.defaults.headers.common = {'Authorization': `Bearer ${token}`
+
+    // Lấy token từ localStorage
+  //  const token = localStorage.getItem("authToken");
+
+// Đặt token vào header mặc định của Axios
+    if (token) {
+        axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+    }
 export const createBook = async (book) => {
+
     try {
-        const res = await axios.post(`http://localhost:8080/api/books/create`,book);
+        const res = await axios.post(`http://localhost:8080/api/books/createBook`, book,
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            }
+        );
+        console.log(res.data)
         return res.data;
     } catch (error) {
         console.error("Error fetching books detail:", error);
@@ -31,10 +52,17 @@ export const createBook = async (book) => {
     }
 }
 
+
+
 export const editBook = async (book) => {
 
     try {
-        const res = await axios.put(`http://localhost:8080/api/books/update/${book.id}`,book);
+        const res = await axios.put(`http://localhost:8080/api/books/update/${book.id}`, book,
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
         return res.data;
     } catch (error) {
         console.error("Error fetching books detail:", error);

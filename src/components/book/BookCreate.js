@@ -3,9 +3,9 @@ import {useNavigate} from "react-router-dom";
 import {findAllCategory} from "../../service/CategoryService";
 import {ErrorMessage, Field, Form, Formik} from "formik";
 import storage from "../../firebase/FirebaseConfig";
-import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
-import axios from "axios";
+import {ref, uploadBytes, getDownloadURL} from 'firebase/storage';
 import * as Yup from "yup";
+import {createBook} from "../../service/BookService";
 
 const validate = Yup.object().shape({
     name: Yup.string().required("Vui lòng nhập cuốn sách"),
@@ -62,62 +62,63 @@ const BookCreate = () => {
                 category: JSON.stringify(categories[0])
             }}
                     validationSchema={validate}
-                    onSubmit={async (values, { setSubmitting, resetForm }) => {
+                    onSubmit={async (values, {setSubmitting, resetForm}) => {
                         try {
                             const imageUrl = await handleUpload(values);
                             if (imageUrl) {
-                                const obj = {...values, category: JSON.parse(values.category),image:imageUrl }
-                              await  axios.post('http://localhost:8080/api/books/createBook', obj);
-                                console.log('House information added successfully!');
+                                const obj = {...values, category: JSON.parse(values.category), image: imageUrl}
+                                await createBook(obj)
+                                console.log('Book information added successfully!');
                                 resetForm();
                                 setImagePreview(null);
                                 navigate('/book');
                             }
-                        }
-                        catch (error) {
-                            console.error('Error adding house information:', error);
+                        } catch (error) {
+                            console.error('Error adding book information:', error);
                         } finally {
                             setSubmitting(false);
                         }
 
 
-            }
-            }>
-                {({ isSubmitting, setFieldValue }) => (
+                    }
+                    }>
+                {({isSubmitting, setFieldValue}) => (
                     <Form>
                         <div>
                             <label className="form-label">Name</label>
                             <Field type={"text"} name="name" className="form-control"></Field>
-                            <ErrorMessage name="name" component="div"  />
+                            <ErrorMessage name="name" component="div"/>
 
                         </div>
                         <div>
                             <label className="form-label">Author</label>
                             <Field type={"text"} name="author" className="form-control"></Field>
-                            <ErrorMessage name="author" component="div"  />
+                            <ErrorMessage name="author" component="div"/>
 
                         </div>
                         <div>
                             <label className="form-label">Description</label>
                             <Field type={"text"} name="description" className="form-control"></Field>
-                            <ErrorMessage name="description" component="div"  />
+                            <ErrorMessage name="description" component="div"/>
 
                         </div>
                         <div>
                             <label className="form-label">Quantity</label>
                             <Field type={"text"} name="quantity" className="form-control"></Field>
-                            <ErrorMessage name="quantity" component="div" />
+                            <ErrorMessage name="quantity" component="div"/>
                         </div>
                         <div>
                             <label className="form-label">Price</label>
                             <Field type={"text"} name="price" className="form-control"></Field>
-                            <ErrorMessage name="price" component="div"  />
+                            <ErrorMessage name="price" component="div"/>
                         </div>
                         <div className="mb-3">
                             <label className="form-label">Image</label>
-                            <input type="file" accept="image/jpeg, image/png" className="file-input" onChange={(e) => handleImageChange(e, setFieldValue)} />
+                            <input type="file" accept="image/jpeg, image/png" className="file-input"
+                                   onChange={(e) => handleImageChange(e, setFieldValue)}/>
                             {imagePreview && (
-                                <img src={imagePreview} alt="Preview" className="file-preview" style={{ width: '450px', height: '250px' }} />
+                                <img src={imagePreview} alt="Preview" className="file-preview"
+                                     style={{width: '450px', height: '250px'}}/>
                             )}
                         </div>
 

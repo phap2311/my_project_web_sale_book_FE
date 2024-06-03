@@ -9,6 +9,8 @@ const BookDetail = () => {
     const {id} = useParams();
     const navigate = useNavigate();
     //const {accountId} = useParams() ;
+    const accountId = localStorage.getItem('idAccount');
+    const [bill_id,setBill_id] = useState("")
 
 
     useEffect(() => {
@@ -34,8 +36,11 @@ const BookDetail = () => {
         }
     }
     const handleAddToCart = () => {
-        const accountId = 1;
-        createCart(accountId, id, count).then((res) => {
+        const cart = {
+            quantity: count,
+
+        };
+        createCart(accountId, id, cart).then((res) => {
             console.log("Added to cart successfully");
             navigate(`/cart/${accountId}`)
 
@@ -80,7 +85,7 @@ const BookDetail = () => {
                                 </div>
                                 <div className="mb-3">
                                     <p className="form-label"
-                                       style={{fontSize: 30, color: "orange"}}>{bookDetail && formatPrice(bookDetail.price)}đ</p>
+                                       style={{fontSize: 30, color: "orange"}}>{bookDetail && formatPrice(bookDetail.price)}</p>
                                 </div>
                                 <div className="row mt-4 ">
                                     Số lượng:
@@ -107,9 +112,8 @@ const BookDetail = () => {
                                     style={{color: "orange"}}>0933109109</span></div>
                                 <h4 className="mt-4">Thông tin & khuyến mãi</h4>
                                 <div>Đổi trả hàng trong vòng 7 ngày</div>
-                                <div>Freeship nội thành Sài Gòn từ 150.000đ*.</div>
                                 <div>Freeship toàn quốc từ 250.000đ</div>
-                                <button><Link to={`/editBook/${id}`}>Edit</Link></button>
+                                <button className="btn btn-primary" ><Link to={`/editBook/${id}`} style={{color:"white"}}>Edit</Link></button>
 
                             </div>
                         </div>

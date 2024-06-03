@@ -1,13 +1,12 @@
 import axios from "axios";
 
-export const createCart = async (accountId, bookId, quantity) => {
+export const createCart = async (accountId, bookId,cart) => {
     try {
-        const res = await axios.post(`http://localhost:8080/api/cart/create`, null,
+        const res = await axios.post(`http://localhost:8080/api/cart/create`, cart,
             {
                 params: {
                     accountId: accountId,
                     bookId: bookId,
-                    quantity: quantity
                 }
             }
         );

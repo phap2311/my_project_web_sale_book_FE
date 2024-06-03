@@ -1,0 +1,58 @@
+/* Style the form container */
+#form-login {
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+}
+
+/* Style the form elements */
+#form-login label {
+    font-weight: bold;
+    margin-bottom: 5px;
+    display: block;
+    color: #333;
+}
+
+#form-login .form-control {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+    font-size: 16px;
+    color: #333;
+}
+
+/* Style the error messages */
+/*#form-login .errorMessage {*/
+/*    color: #d9534f;*/
+/*    margin-top: -10px;*/
+/*    margin-bottom: 10px;*/
+/*    font-size: 14px;*/
+/*}*/
+
+/* Style the submit button */
+#form-login button {
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+#form-login button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+#form-login button:hover:not(:disabled) {
+    background-color: #0056b3;
+}

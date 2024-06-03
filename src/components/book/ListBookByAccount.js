@@ -1,31 +1,48 @@
 import {useEffect, useState} from "react";
-import {deleteBook, findAllBook} from "../../service/BookService";
-import {Link} from "react-router-dom";
+import {Link, useParams} from "react-router-dom";
+import {findAllBookByAccountId} from "../../service/SellerService";
+import {deleteBook} from "../../service/BookService";
 import BookDelete from "./BookDelete";
 
-const Books = () => {
+const ListBookByAccount = () => {
     const [book, setBook] = useState([]);
+    const [isDelete, setIsDelete] = useState();
+    const [show, setShow] = useState(false);
+    const {id} = useParams();
+
     useEffect(() => {
-        getAllBooks();
+        getAllBooksByAccount();
     }, []);
 
-    const getAllBooks = () => {
-        findAllBook().then((res) => {
+    const getAllBooksByAccount = () => {
+        findAllBookByAccountId(id).then((res) => {
             setBook(res);
         });
     };
 
+    const handleShowModalDelete = (idBook) => {
+        setIsDelete(idBook);
+        setShow(true);
+
+    }
+    const onDeleteHandler = () => {
+        deleteBook(isDelete).then((res) => {
+            getAllBooksByAccount()
+        })
+    }
     const formatPrice = (price) => {
         return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + " đ";
     };
-
     return (
         <>
-
-            <div className="container">
+            <div>
+                <Link to={"/createBook"}>Thêm sách</Link>
+            </div>
+            <div className="container mt-4">
                 <div className="row">
                     {book.map((item, index) => (
                         <div key={item.id} className="col-md-4 mb-4">
+                            <div className="card">
                             <Link to={`/book/${item.id}`} className="card-link"
                                   style={{color: "black", textDecoration: "none"}}>
 
@@ -45,12 +62,19 @@ const Books = () => {
 
                                         <h5 className="card-title">{item.name}</h5>
                                         <p className="card-text">{formatPrice(item.price)}</p>
-                                        {/*<p className="card-text"> {item.price} đ</p>*/}
 
                                     </div>
                                 </div>
                             </Link>
+                                <button className="btn-warning" onClick={
+                                    () => handleShowModalDelete(item.id)
+                                }>delete
+                                </button>
+                            </div>
 
+
+
+                            <BookDelete show={show} setShow={setShow} onDeleteHandler={onDeleteHandler}/>
 
                             <div className="card-footer">
                             </div>
@@ -58,8 +82,9 @@ const Books = () => {
                     ))}
                 </div>
             </div>
+
         </>
     )
 
 }
-export default Books;
+export default ListBookByAccount;
