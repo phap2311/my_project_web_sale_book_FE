@@ -2,16 +2,17 @@ import {useEffect, useState} from "react";
 import {findAllCart, findAllMoney, removeBooksToCart} from "../../service/CartService";
 import "./Cart.css"
 import CartDelete from "./CartDelete";
-import {useParams} from "react-router-dom";
+import {Link, useParams} from "react-router-dom";
 
 
 const Cart = () => {
     const [cartItem, setCartItem] = useState([]);
     const [totalMoney, setTotalMoney] = useState();
    const {accountId} = useParams();
-    //const accountId = 1;
+
     const [isDelete, setIsDelete] = useState();
     const [show, setShow] = useState(false);
+
 
 
     useEffect(() => {
@@ -128,7 +129,7 @@ const Cart = () => {
                                 <div className="total-money" style={{color: "red"}}>
                                     {totalMoney && formatPrice(totalMoney.totalMoney)}</div>
                                 <div className="text-center" style={{background: "orange"}}>
-                                    Tiến hành đặt hàng
+                                 <Link to={`/bill/create/${accountId}`} state={{totalMoney: totalMoney}}> Tiến hành đặt hàng</Link>
                                 </div>
                             </div>
                             <div>

@@ -1,7 +1,15 @@
 import React from 'react';
 import './home.css';
+import {useNavigate} from "react-router-dom";
 
 const Home = () => {
+    const isLogin = localStorage.getItem("isLogin");
+    const navigate = useNavigate();
+    const logout = () => {
+        localStorage.setItem("isLogin", false);
+        localStorage.clear();
+        navigate("/login");
+    }
     return (
         <div>
             <header>
@@ -13,6 +21,8 @@ const Home = () => {
                             <li><a href="#about">Giới Thiệu</a></li>
                             <li><a href="#shop">Cửa Hàng</a></li>
                             <li><a href="#contact">Liên Hệ</a></li>
+                            <a onClick={logout}>Đăng xuất</a>
+                            
                         </ul>
                     </nav>
                 </div>

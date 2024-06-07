@@ -59,7 +59,7 @@ const BookDetail = () => {
                 <div className="card">
                     <div className="card-body">
                         <div className="row">
-                            <div className="col-5">
+                            <div className="col-lg-5 col-md-12 mt-4">
                                 <img
                                     src={bookDetail && bookDetail.image}
                                     className="card-img-top"
@@ -73,7 +73,7 @@ const BookDetail = () => {
                                     }}
                                 />
                             </div>
-                            <div className="col-6">
+                            <div className="col-lg-6 col-md-12 mt-4">
                                 <div className="mb-3">
                                     <p className="form-label">{bookDetail && bookDetail.name}</p>
                                 </div>
