@@ -17,16 +17,24 @@ import SignUpUser from "./components/login/SignUpUser";
 import {ToastContainer} from "react-toastify";
 import SignUpSeller from "./components/login/SignUpSeller";
 
+import CheckoutSuccessfully from "./components/bill/CheckoutVnpay";
+import Homes from "./components/home/Homes";
+
 
 function App() {
     return (
         <div>
             <Routes>
-                <Route path={"/book"} element={<Books/>}></Route>
-                <Route path={"/book/:id"} element={<BookDetail/>}></Route>
-                <Route path={"/createBook"} element={<BookCreate/>}></Route>
-                <Route path={"/editBook/:id"} element={<BookUpdate/>}></Route>
-                <Route path={"/cart/:accountId"} element={<Cart/>}></Route>
+                <Route path={"/homes"} element={<Homes/>}>
+                    <Route path={"/homes"} element={<Books/>}></Route>
+                </Route>
+                <Route path={"/"} element={<Home/>}>
+                    <Route path={"/book/:id"} element={<BookDetail/>}></Route>
+                    <Route path={"/createBook"} element={<BookCreate/>}></Route>
+                    <Route path={"/editBook/:id"} element={<BookUpdate/>}></Route>
+                    <Route path={"/cart/:accountId"} element={<Cart/>}></Route>
+                </Route>
+
                 <Route path={"/bill/create/:accountId"} element={<BillCreate/>}></Route>
                 <Route path={"/bill/:id"} element={<Bill/>}></Route>
                 <Route path={"/login"} element={<Login/>}></Route>
@@ -36,6 +44,9 @@ function App() {
                 <Route path={"/bookList/:id"} element={<ListBookByAccount/>}></Route>
                 <Route path={"/register/user"} element={<SignUpUser/>}></Route>
                 <Route path={"/register/seller"} element={<SignUpSeller/>}></Route>
+                <Route path={"/paymentCart/:id"} element={<CheckoutSuccessfully/>}></Route>
+                <Route path={"/bill/:id"} element={<Bill/>}></Route>
+
             </Routes>
             <ToastContainer/>
         </div>

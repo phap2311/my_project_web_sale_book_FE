@@ -1,12 +1,15 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {Formik, Form, Field, ErrorMessage} from 'formik';
 import * as Yup from 'yup';
 import "./login.css"
 
 import {useNavigate} from "react-router-dom";
-import {loginAccount} from "../../service/AccountService"; // Đảm bảo đúng đường dẫn tới file service
+import {loginAccount} from "../../service/AccountService";
+import ModalLogin from "./ModalLogin";
 
 const Login = () => {
+    const [showSuccessModal, setShowSuccessModal] = useState(false);
+
     const initialValues = {
         username: '',
         password: ''
@@ -26,11 +29,16 @@ const Login = () => {
             // Save the response data in local storage and redirect
             //  localStorage.setItem('object', JSON.stringify(data));
 
-
+            console.log(data.avatar)
             if (data.token) {
+                localStorage.setItem("isLogin", true);
+                localStorage.setItem('nameAccount', data.username);
+                localStorage.setItem("avatar", data.avatar);
                 localStorage.setItem("idAccount", data.id);
                 localStorage.setItem('authToken', data.token)
-                navigate("/book")
+                setShowSuccessModal(true)
+
+
 
             } else {
                 console.error('No token found in response')
@@ -44,6 +52,8 @@ const Login = () => {
     };
 
     return (
+        <div>
+
         <Formik
             initialValues={initialValues}
             validationSchema={validationSchema}
@@ -68,6 +78,17 @@ const Login = () => {
                 </Form>
             )}
         </Formik>
+            {
+                showSuccessModal && (
+
+    <ModalLogin
+        show={showSuccessModal}
+        onClose={() => setShowSuccessModal(false)}
+    />
+                )}
+
+        </div>
+
     );
 }
 

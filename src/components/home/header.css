@@ -1,0 +1,376 @@
+.header {
+
+    background-image: url("https://bizweb.dktcdn.net/100/364/248/themes/736344/assets/slider_1.jpg?1716195728231");
+    background-size: cover;
+    width: 100%;
+    height: 660px;
+    transition: background-image 1s ease-in-out;
+    background-position: center;
+
+}
+
+
+.button-container {
+    position: absolute;
+    top: 50%;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    transform: translateY(-50%);
+}
+
+.slider-button {
+    background-color: rgba(0, 0, 0, 0.5);
+    border: none;
+    color: white;
+    padding: 10px;
+    cursor: pointer;
+    font-size: 20px;
+}
+
+.header_book{
+    height: 120px;
+    /*background-image: linear-gradient(0, #61dafb, #007bff);*/
+    background-image: url("https://bizweb.dktcdn.net/100/364/248/themes/736344/assets/slider_1.jpg?1716195728231");
+/*color: darkcyan;*/
+
+}
+
+.header_navbar {
+    display: flex;
+    justify-content: space-between;
+}
+
+.header_navbar-list {
+    list-style: none;
+    padding-left: 30px;
+    padding-right: 30px;
+}
+
+.header_navbar-item {
+    margin: 0px 8px;
+    position: relative;
+}
+
+.header_navbar-item,
+.header_navbar-item-link {
+    display: inline-block;
+    font-size: 1.2rem;
+    color: white;
+    text-decoration: none;
+    font-weight: 300;
+}
+
+.header_navbar-item,
+.header_navbar-item-link,
+.header_navbar-icon-link {
+    display: inline-flex;
+    align-items: center;
+}
+
+.header_navbar-item:hover,
+.header_navbar-item-link:hover {
+    cursor: pointer;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.header_navbar-item--strong {
+    font-weight: 600;
+    margin-bottom: -5px;
+}
+
+
+.header_navbar-item--separate::after {
+    content: "";
+    display: block;
+    position: absolute;
+    border-left: 1px solid #ffffff;
+    height: 16px;
+    right: -8px;
+    top: 50%;
+    transform: translateY(-40%);
+}
+
+.header_navbar-icon-link {
+    color: white;
+    text-decoration: none;
+}
+
+.header_navbar-icon {
+    font-size: 1.6rem;
+    margin: 4px;
+    font-style: normal;
+}
+.header_navbar-icon a{
+    font-size: 1.2rem;
+
+}
+
+
+
+.header_navbar-title--no-pointer {
+    cursor: text;
+    color: white;
+
+}
+
+/*Header with search*/
+.header-with-search {
+    display: flex;
+    align-items: center;
+}
+
+.header_logo {
+    display: flex;
+    flex-direction: column;
+    margin-left: 80px;
+    margin-top: -30px;
+}
+
+.logo_text {
+    display: flex;
+}
+
+.logo_letter {
+    font-size: 32px;
+    font-weight: bold;
+    margin-right: 2px;
+}
+
+.red {
+    color: #ed1c24;
+}
+
+.yellow {
+    color: #f7931e;
+}
+
+.green {
+    color: #009245;
+}
+
+.logo_subtext {
+    margin-top: 5px; /* Tạo khoảng cách giữa logo và slogan */
+    font-size: 14px;
+    color: #666; /* Màu chữ xám nhạt */
+}
+
+.header_search {
+    width: 950px;
+    height: 40px;
+    border-radius: 2px;
+    background-color: white;
+    margin-left: 50px;
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.header_cart {
+    width: 150px;
+    text-align: center;
+    position: relative;
+}
+
+.header_cart-icon {
+    font-size: 2.0rem;
+    color: white;
+}
+
+.header_cart-notice{
+    position: absolute;
+    padding: 1px 7px;
+    font-size: 1.4rem;
+    line-height: 1.4rem;
+    border-radius: 10px;
+    color: #007bff;
+    background-color: white;
+    top: -4px;
+    right: 35px;
+}
+
+.header_search-input {
+    flex: 1;
+    height: 100%;
+    border: none;
+    outline: none;
+    font-size: 1.2rem;
+    padding: 0 16px;
+    border-radius: 3px;
+
+}
+
+.header_search-select {
+    border-left: 1px solid #cccccc;
+    padding-left: 16px;
+    position: relative;
+}
+
+.header_search-select-label {
+    font-size: 1.2rem;
+    color: #282c34;
+    margin: 4px 16px 0;
+    padding-right: 2px;
+}
+
+.header_search-select-icon {
+font-size: 1.2rem;
+    color: #282c34;
+    margin: 0 16px 0 6px;
+    position: relative;
+    top: 1px;
+}
+
+.header_search-btn{
+    background-color: #007bff;
+    border: none;
+    height: 34px;
+    border-radius: 3px;
+    margin-right: 3px;
+    width: 60px;
+    outline: none;
+}
+.header_search-btn:hover{
+    cursor: pointer;
+    background-color: #4c5caf;
+}
+.header_search-btn-icon{
+    font-size: 1.4rem;
+    color: white;
+}
+
+.header_search-option{
+position: absolute;
+    right: 0;
+    top: 100%;
+    width: 190px;
+    list-style: none;
+    padding-left: 0;
+    border-radius: 3px;
+    display: none;
+}
+
+.header_search-option::after{
+content: "";
+    display: block;
+    width: 100%;
+    height: 10px;
+    position: absolute;
+    top: -10px;
+    left: 0;
+
+}
+.header_search-select:hover .header_search-option{
+    display: block;
+}
+.header_search-option-item{
+background-color: white;
+    border-radius: 3px;
+    padding: 8px 8px;
+    text-align: right;
+}
+.header_search-option-item:first-child{
+border-top-left-radius: 3px;
+border-top-right-radius: 3px;
+
+}
+.header_search-option-item:last-child{
+    border-bottom-left-radius: 3px;
+    border-bottom-right-radius: 3px;
+}
+.header_search-option-item span{
+font-size: 1.2rem;
+    color: #282c34;
+}
+.header_search-option-item i{
+font-size: 1.2rem;
+    color: #007bff;
+    margin: 0 4px 0 12px;
+}
+
+/*css footer*/
+
+.footer {
+    background-color: #f8f9fa;
+    padding: 20px 0;
+    border-top: 1px solid #e7e7e7;
+    margin-top: 20px;
+}
+
+.footer h5 {
+    font-size: 18px;
+    margin-bottom: 20px;
+}
+
+.footer ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer ul li {
+    margin-bottom: 10px;
+}
+
+.footer ul li a {
+    color: #6c757d;
+    text-decoration: none;
+}
+
+.footer ul li a:hover {
+    text-decoration: underline;
+}
+
+.footer .text-center {
+    margin-top: 20px;
+}
+/*dropdown*/
+.header_navbar-item {
+    position: relative; /* Ensure the dropdown is positioned relative to this item */
+}
+
+.header_login {
+    cursor: pointer; /* Change cursor to pointer to indicate it's clickable */
+}
+
+.dropdown {
+    /*display: inline; !* Initially hide the dropdown *!*/
+    position: absolute; /* Position it absolutely relative to the parent */
+    top: 100%; /* Position it just below the parent */
+    left: 0;
+    background-color: white; /* Background color for the dropdown */
+    border: 1px solid #ccc; /* Add a border to the dropdown */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Add a shadow for a floating effect */
+    z-index: 1000; /* Ensure it appears above other elements */
+}
+
+.avatar {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+}
+
+.dropdown-content {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-content a:hover {
+    background-color: #f1f1f1;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}

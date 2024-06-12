@@ -11,9 +11,8 @@ import {
     faMagnifyingGlass, faRegistered, faRightToBracket
 } from "@fortawesome/free-solid-svg-icons";
 import {findAllMoney} from "../../service/CartService";
-//import {findAllMoney} from "../../service/CartService";
 
-const Home = () => {
+const Homes = () => {
     const isLogin = localStorage.getItem("isLogin");
     const idAccount = localStorage.getItem("idAccount");
     const nameAccount = localStorage.getItem("nameAccount")
@@ -42,9 +41,9 @@ const Home = () => {
     const [totalMoney, setTotalMoney] = useState();
 
     useEffect(() => {
-        getTotalMoney()
+        getTotalMoney1()
     },[])
-    const getTotalMoney = () => {
+    const getTotalMoney1 = () => {
         findAllMoney(idAccount).then((res) => {
             setTotalMoney(res)
         })
@@ -54,9 +53,28 @@ const Home = () => {
             });
     }
 
+    const images = [
+        'https://bizweb.dktcdn.net/100/364/248/themes/736344/assets/slider_1.jpg?1716195728231',
+        'https://bizweb.dktcdn.net/100/364/248/themes/736344/assets/slider_3.jpg?1716195728231',
+        'https://bizweb.dktcdn.net/100/364/248/themes/736344/assets/slider_2.jpg?1716195728231'
+    ];
+    const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+    const handleNextImage = () => {
+        setCurrentImageIndex((prevIndex) => (prevIndex + 1) % images.length);
+    };
+
+    const handlePrevImage = () => {
+        setCurrentImageIndex((prevIndex) => (prevIndex - 1 + images.length) % images.length);
+    };
+
     return (
         <div className="app">
-            <header className="header_book">
+            <header className="header" style={{backgroundImage: `url(${images[currentImageIndex]})`}}>
+                <div className="button-container">
+                    <button className="slider-button" onClick={handlePrevImage}>❮</button>
+                    <button className="slider-button" onClick={handleNextImage}>❯</button>
+                </div>
                 <nav className="header_navbar">
                     <ul className="header_navbar-list">
                         <li className="header_navbar-item header_navbar-item--separate">
@@ -192,8 +210,8 @@ const Home = () => {
                             </ul>
                         </div>
                         <button className="header_search-btn">
-                            <i className="header_search-btn-icon">
-                                <FontAwesomeIcon icon={faMagnifyingGlass}/>
+                            <i className="header_search-btn-icon" >
+                                <FontAwesomeIcon  icon={faMagnifyingGlass}/>
                             </i>
                         </button>
                     </div>
@@ -206,7 +224,7 @@ const Home = () => {
                             </Link>
                         </i>
                         <span className="header_cart-notice">{
-                           ((totalMoney && totalMoney.totalQuantity) > 0)? (totalMoney && totalMoney.totalQuantity) : 0
+                             ((totalMoney && totalMoney.totalQuantity) > 0)? (totalMoney && totalMoney.totalQuantity) : 0
                         }</span>
                     </div>
                 </div>
@@ -264,4 +282,4 @@ const Home = () => {
     );
 }
 
-export default Home;
+export default Homes;

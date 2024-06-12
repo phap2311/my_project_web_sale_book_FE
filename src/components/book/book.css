@@ -1,0 +1,51 @@
+.parallelogram {
+    width: 170px;
+    height: 40px;
+    background: #498374;
+    transform: skew(20deg);
+    position: relative;
+    margin: 15px 5px 0px 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    left: -12px;
+
+}
+
+.parallelogram .text:hover{
+    color: #61dafb;
+    cursor: pointer;
+}
+.parallelogram .text {
+    transform: skew(-20deg);
+    color: white;
+    font-size: 18px;
+    text-align: center;
+    font-family: "Product Sans";
+}
+
+.horizontal {
+    border-bottom: 2px solid rgba(117, 117, 117, 0.39);
+    margin-bottom: 15px;
+}
+
+.product-loop-base {
+    transition: transform 0.3s, box-shadow 0.3s;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    height: 380px;
+    margin-bottom: 50px;
+}
+
+.product-loop-base:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+}
+
+.product-thumbnail img{
+    height: 300px;
+    width: 250px;
+}
+.book-content{
+    text-align: center;
+    margin-bottom: 40px;
+}

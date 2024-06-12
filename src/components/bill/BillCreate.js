@@ -1,10 +1,9 @@
-import {useNavigate, useParams} from "react-router-dom";
+import {useLocation, useNavigate, useParams} from "react-router-dom";
 import {ErrorMessage, Field, Form, Formik} from "formik";
 import * as Yup from "yup";
 import {createBill} from "../../service/BillService";
 import Checkout from "./Checkout";
 import {PayPalScriptProvider} from "@paypal/react-paypal-js";
-import bill from "./Bill";
 
 const validate = Yup.object().shape({
     payment: Yup.string().required("Vui lòng nhập phương thức chuyển"),
@@ -23,6 +22,8 @@ const BillCreate = () => {
     const {accountId} = useParams();
 
 
+
+
     const paymentMethods = [
         {value: "cash", label: "Thanh toán tiền mặt khi nhận hàng"},
         {value: "credit_card", label: "Ví điện tử"},
@@ -36,6 +37,8 @@ const BillCreate = () => {
             </option>
         ));
     };
+
+
 
     return (
         <>
@@ -106,6 +109,9 @@ const BillCreate = () => {
                                             <button type="submit" className="btn btn-primary" disabled={isSubmitting}>
                                                 Save
                                             </button>
+
+
+
                                         </div>
                                     </div>
                                 </div>

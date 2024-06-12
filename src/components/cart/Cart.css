@@ -6,3 +6,24 @@
     font-weight: bold;
     font-size: 20px;
 }
+
+.cart_empty {
+    margin-left: 200px;
+
+}
+.cart_empty img {
+    height: 400px;
+}
+.card_empty-pp{
+margin: 0 0 0 335px}
+.cart_title_name{
+    background-image: url('https://ies.sas.ac.uk/sites/default/files/styles/large/public/events/LRBS%2520woman%2520reading.jpg?h=c7f2a323&itok=dvPUr3sb');
+    height: 150px;
+    width: auto;
+    text-align: center;
+    font-weight: bold;
+    color: white;
+    font-size: 50px;
+    justify-content: center;
+   align-content: center;
+}

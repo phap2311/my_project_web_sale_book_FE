@@ -1,7 +1,7 @@
 import {useEffect, useState} from "react";
-import {deleteBook, findAllBook} from "../../service/BookService";
+import { findAllBook} from "../../service/BookService";
 import {Link} from "react-router-dom";
-import BookDelete from "./BookDelete";
+import "./book.css"
 
 const Books = () => {
     const [book, setBook] = useState([]);
@@ -23,41 +23,40 @@ const Books = () => {
         <>
 
             <div className="container">
+                <div className="horizontal">
+                    <div className="parallelogram">
+                        <div className="text">NEW BOOK</div>
+                    </div>
+                </div>
+
                 <div className="row">
+
                     {book.map((item, index) => (
-                        <div key={item.id} className="col-md-4 mb-4">
+                        <div key={item.id} className="col-md-3 ">
                             <Link to={`/book/${item.id}`} className="card-link"
                                   style={{color: "black", textDecoration: "none"}}>
 
-                                <div className="card rounded">
-                                    <img
-                                        src={item.image}
-                                        className="card-img-top"
-                                        //  alt={item.name_house}
-                                        style={{
-                                            height: "150px",
-                                            objectFit: "cover",
-                                            borderTopLeftRadius: "10px",
-                                            borderTopRightRadius: "10px",
-                                        }}
-                                    />
-                                    <div className="card-body">
-
+                                <div className="product-loop-base">
+                                    <div class="product-thumbnail">
+                                        <img
+                                            src={item.image}
+                                        />
+                                    </div>
+                                    <div className="book-content">
                                         <h5 className="card-title">{item.name}</h5>
-                                        <p className="card-text">{formatPrice(item.price)}</p>
-                                        {/*<p className="card-text"> {item.price} đ</p>*/}
-
+                                        <p className="card-text" style={{color:"#5c9083", fontSize: 20}}>{formatPrice(item.price)}</p>
                                     </div>
                                 </div>
                             </Link>
 
-
-                            <div className="card-footer">
-                            </div>
                         </div>
                     ))}
                 </div>
+                <div className="banner-book">
+                    <img src={'https://bizweb.dktcdn.net/100/364/248/themes/736344/assets/banner.jpg'}/>
+                </div>
             </div>
+
         </>
     )
 
