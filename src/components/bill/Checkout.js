@@ -1,4 +1,4 @@
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {useLocation, useNavigate, useParams} from "react-router-dom";
 import { PayPalButtons, usePayPalScriptReducer } from "@paypal/react-paypal-js";
 
@@ -10,7 +10,11 @@ const Checkout = () => {
     const navigation = useNavigate();
 
     const location = useLocation();
-    const  {totalMoney} = location.state
+    const  {totalMoney} = location.state;
+
+    useEffect(()=>{
+        console.log(totalMoney);
+    },[]);
 
     const nav = useNavigate();
         const onCreateOrder = (data, actions) => {

@@ -1,4 +1,4 @@
-import * as paymentMethods from "react-bootstrap/ElementChildren";
+
 import {PayPalScriptProvider} from "@paypal/react-paypal-js";
 import Checkout from "./Checkout";
 
@@ -8,13 +8,7 @@ const Paypal = () => {
         currency: "USD",
         intent: "capture",
     };
-    // const renderPaymentOptions = () => {
-    //     return paymentMethods.map((method) => (
-    //         <option key={method.value} value={method.value}>
-    //             {method.label}
-    //         </option>
-    //     ));
-    // };
+
     return (
         <>
             <div className="d-flex justify-content-center mt-4">

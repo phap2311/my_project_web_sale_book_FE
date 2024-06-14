@@ -13,12 +13,12 @@ const validate = Yup.object().shape({
     address: Yup.string().required("Vui lòng nhập địa chỉ"),
 });
 
-
 const BillCreate = () => {
     const navigate = useNavigate();
     const {accountId} = useParams();
     const [selectedPaymentMethod, setSelectedPaymentMethod] = useState('');
     const [exchangeRate, setExchangeRate] = useState(1);
+    const [totalMoney, setTotalMoney] = useState(0); // Khởi tạo totalMoney
 
     const paymentMethods = [
         {value: "paypal", label: "Thanh toán bằng PayPal"},
@@ -32,34 +32,33 @@ const BillCreate = () => {
             </option>
         ));
     };
-    const [totalMoney, setTotalMoney] = useState();
 
     useEffect(() => {
         getTotalMoney();
-         getExchangeRate();
-    }, [])
+        getExchangeRate(); // Gọi API tỷ giá hối đoái khi component mount
+    }, []);
+
     const getTotalMoney = () => {
         findAllMoney(accountId).then((res) => {
-            setTotalMoney(res)
-        })
-            .catch((error) => {
-                console.error("Error fetching cart items:", error);
-                setTotalMoney([]);
-            });
-    }
+            setTotalMoney(res);
+        }).catch((error) => {
+            console.error("Error fetching cart items:", error);
+            setTotalMoney(0);
+        });
+    };
+
     const getExchangeRate = async () => {
         try {
-            const response = await axios.get('https://v6.exchangerate-api.com/v6/4b1a4d2eb812c5f35d5e7e9c/latest/USD');
-            setExchangeRate(response.data.conversion_rates.VND);
+            const response = await axios.get('https://v6.exchangerate-api.com/v6/4b1a4d2eb812c5f35d5e7e9c/latest/USD'); // Thay thế bằng API của bạn
+            setExchangeRate(response.data.conversion_rates.VND); // Giả sử nội tệ là VND
         } catch (error) {
             console.error("Error fetching exchange rate:", error);
             setExchangeRate(1); // Sử dụng tỷ giá cố định nếu xảy ra lỗi
         }
     };
 
-    const convertToUSD = () => {
-
-        return totalMoney && (totalMoney.totalMoney / exchangeRate).toFixed(2);
+    const convertToUSD = (amount) => {
+        return amount / exchangeRate;
     };
 
     return (
@@ -76,20 +75,15 @@ const BillCreate = () => {
                         onSubmit={async (values, {setSubmitting, resetForm}) => {
                             try {
                                 const id = await createBill(values, accountId);
-                                // await createBill(values, accountId);
                                 resetForm();
-                                 const totalMoneyInUSD = convertToUSD();
-
-                                console.log(`kk ${totalMoneyInUSD}`);
+                                const totalMoneyInUSD = convertToUSD(totalMoney);
                                 if (selectedPaymentMethod === 'paypal') {
-                                    // navigate('/paypal', {state: {totalMoney: totalMoney}});
-                                     navigate('/paypal', {state: {totalMoney: {totalMoney: totalMoneyInUSD}}});
-
+                                    navigate('/paypal', {state: {totalMoney: totalMoneyInUSD}});
                                 } else if (selectedPaymentMethod === 'vnpay') {
                                     navigate(`/bill/${id}`);
                                 }
 
-                                toast.success("thanh toán thành công")
+                                toast.success("Thanh toán thành công");
                             } catch (error) {
                                 console.error("Error creating bill:", error);
                             } finally {
@@ -97,12 +91,11 @@ const BillCreate = () => {
                             }
                         }}
                     >
-                        {({isSubmitting,setFieldValue}) => (
+                        {({isSubmitting, setFieldValue}) => (
                             <Form>
                                 <div className="container">
                                     <div className="justify-content-center">
                                         <div className="col-6">
-
                                             <div className="mb-3">
                                                 <label htmlFor="payment" className="form-label">Payment</label>
                                                 <Field
@@ -111,7 +104,7 @@ const BillCreate = () => {
                                                     name="payment"
                                                     id="payment"
                                                     placeholder="payment"
-                                                    onChange = {(e)=>{
+                                                    onChange={(e) => {
                                                         setFieldValue('payment', e.target.value);
                                                         setSelectedPaymentMethod(e.target.value);
                                                     }}
@@ -119,7 +112,7 @@ const BillCreate = () => {
                                                     <option value="">Chọn phương thức thanh toán</option>
                                                     {renderPaymentOptions()}
                                                 </Field>
-                                                <ErrorMessage name="payment" component="div" className="text-danger"/>
+                                                <ErrorMessage name="payment" component="div" className="text-danger" />
                                             </div>
                                             <div className="mb-3">
                                                 <label htmlFor="content" className="form-label">Content</label>
@@ -130,7 +123,7 @@ const BillCreate = () => {
                                                     id="content"
                                                     placeholder="content"
                                                 />
-                                                <ErrorMessage name="content" component="div" className="text-danger"/>
+                                                <ErrorMessage name="content" component="div" className="text-danger" />
                                             </div>
                                             <div className="mb-3">
                                                 <label htmlFor="address" className="form-label">Address</label>
@@ -141,13 +134,11 @@ const BillCreate = () => {
                                                     id="address"
                                                     placeholder="address"
                                                 />
-                                                <ErrorMessage name="address" component="div" className="text-danger"/>
+                                                <ErrorMessage name="address" component="div" className="text-danger" />
                                             </div>
                                             <button type="submit" className="btn btn-primary" disabled={isSubmitting}>
                                                 Save
                                             </button>
-
-
                                         </div>
                                     </div>
                                 </div>
@@ -156,7 +147,6 @@ const BillCreate = () => {
                     </Formik>
                 </div>
             </div>
-
         </>
     );
 };

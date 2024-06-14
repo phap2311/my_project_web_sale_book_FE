@@ -37,10 +37,12 @@ function App() {
                     <Route path={"/seller"} element={<Seller/>}></Route>
                     <Route path={"/seller/:id"} element={<SellerDetail/>}></Route>
                     <Route path={"/bookList/:id"} element={<ListBookByAccount/>}></Route>
+                    <Route path={"/bill/create/:accountId"} element={<BillCreate/>}></Route>
+                    <Route path={"/paypal"} element={<Paypal/>}></Route>
 
                 </Route>
 
-                <Route path={"/bill/create/:accountId"} element={<BillCreate/>}></Route>
+
                 <Route path={"/bill/:id"} element={<Bill/>}></Route>
                 <Route path={"/login"} element={<Login/>}></Route>
                 <Route path={"/"} element={<Home/>}></Route>
@@ -48,7 +50,6 @@ function App() {
                 <Route path={"/register/seller"} element={<SignUpSeller/>}></Route>
                 <Route path={"/paymentCart/:id"} element={<CheckoutSuccessfully/>}></Route>
                 <Route path={"/bill/:id"} element={<Bill/>}></Route>
-                {/*<Route path={"/paypal"} element={<Paypal/>}></Route>*/}
 
             </Routes>
             <ToastContainer/>

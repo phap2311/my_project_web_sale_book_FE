@@ -151,7 +151,9 @@ const Cart = () => {
                                     cartItem.length > 0 ? (
                                         <div className="text-center" style={{background: "orange"}}>
                                             <Link to={`/bill/create/${accountId}`}
-                                                  state={{totalMoney: totalMoney}}> Tiến hành đặt hàng</Link>
+                                                  // state={{totalMoney: totalMoney}}
+                                            > Tiến hành đặt hàng</Link>
+                                            {/*<Link to={`/paypal`} state={{totalMoney: totalMoney}}> Tiến hành đặt hàng</Link>*/}
                                         </div>
                                     ) : (
                                         <div className="text-center" style={{background: "grey", color: "white"}}>
