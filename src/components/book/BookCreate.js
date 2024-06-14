@@ -6,6 +6,7 @@ import storage from "../../firebase/FirebaseConfig";
 import {ref, uploadBytes, getDownloadURL} from 'firebase/storage';
 import * as Yup from "yup";
 import {createBook} from "../../service/BookService";
+import "./bookcreate.css"
 
 const validate = Yup.object().shape({
     name: Yup.string().required("Vui lòng nhập cuốn sách"),
@@ -51,90 +52,171 @@ const BookCreate = () => {
     if (!categories) return <div>Loading...</div>
     return (
         <>
-            <h1>Create Book</h1>
-            <Formik initialValues={{
-                name: '',
-                author: '',
-                description: '',
-                quantity: '',
-                price: '',
-                image: null,
-                category: JSON.stringify(categories[0])
-            }}
-                    validationSchema={validate}
-                    onSubmit={async (values, {setSubmitting, resetForm}) => {
-                        try {
-                            const imageUrl = await handleUpload(values);
-                            if (imageUrl) {
-                                const obj = {...values, category: JSON.parse(values.category), image: imageUrl}
-                                await createBook(obj)
-                                console.log('Book information added successfully!');
-                                resetForm();
-                                setImagePreview(null);
-                                navigate('/book');
+            <div className="container mt-5">
+                <h1 className="text-center mb-4">Create Book</h1>
+                <Formik initialValues={{
+                    name: '',
+                    author: '',
+                    description: '',
+                    quantity: '',
+                    price: '',
+                    image: null,
+                    category: JSON.stringify(categories[0])
+                }}
+                        validationSchema={validate}
+                        onSubmit={async (values, { setSubmitting, resetForm }) => {
+                            try {
+                                const imageUrl = await handleUpload(values);
+                                if (imageUrl) {
+                                    const obj = { ...values, category: JSON.parse(values.category), image: imageUrl };
+                                    await createBook(obj);
+                                    console.log('Book information added successfully!');
+                                    resetForm();
+                                    setImagePreview(null);
+                                    navigate('/homes');
+                                }
+                            } catch (error) {
+                                console.error('Error adding book information:', error);
+                            } finally {
+                                setSubmitting(false);
                             }
-                        } catch (error) {
-                            console.error('Error adding book information:', error);
-                        } finally {
-                            setSubmitting(false);
-                        }
+                        }}
+                >
+                    {({ isSubmitting, setFieldValue }) => (
+                        <Form className="bg-light p-4 rounded shadow-sm">
+                            <div className="mb-3">
+                                <label className="form-label">Tên sách</label>
+                                <Field type="text" name="name" className="form-control" />
+                                <ErrorMessage name="name" component="div" className="text-danger" />
+                            </div>
+                            <div className="mb-3">
+                                <label className="form-label">Tác giả</label>
+                                <Field type="text" name="author" className="form-control" />
+                                <ErrorMessage name="author" component="div" className="text-danger" />
+                            </div>
+                            <div className="mb-3">
+                                <label className="form-label">Mô tả</label>
+                                <Field type="text" name="description" className="form-control" />
+                                <ErrorMessage name="description" component="div" className="text-danger" />
+                            </div>
+                            <div className="mb-3">
+                                <label className="form-label">Số lượng</label>
+                                <Field type="number" name="quantity" className="form-control" />
+                                <ErrorMessage name="quantity" component="div" className="text-danger" />
+                            </div>
+                            <div className="mb-3">
+                                <label className="form-label">Giá</label>
+                                <Field type="text" name="price" className="form-control" />
+                                <ErrorMessage name="price" component="div" className="text-danger" />
+                            </div>
+                            <div className="mb-3">
+                                <label className="form-label">Hình ảnh</label>
+                                <input type="file" accept="image/jpeg, image/png" className="form-control"
+                                       onChange={(e) => handleImageChange(e, setFieldValue)} />
+                                {imagePreview && (
+                                    <img src={imagePreview} alt="Preview" className="img-thumbnail mt-2" style={{ width: '450px', height: '250px' }} />
+                                )}
+                            </div>
+                            <div className="mb-3">
+                                <label className="form-label">Thể loại</label>
+                                <Field name="category" as="select" className="form-select">
+                                    {categories.map(category => (
+                                        <option key={category.id} value={JSON.stringify(category)}>{category.name}</option>
+                                    ))}
+                                </Field>
+                            </div>
+                            <button type="submit" disabled={isSubmitting} className="btn btn-primary">Lưu</button>
+                        </Form>
+                    )}
+                </Formik>
+            </div>
 
 
-                    }
-                    }>
-                {({isSubmitting, setFieldValue}) => (
-                    <Form>
-                        <div>
-                            <label className="form-label">Name</label>
-                            <Field type={"text"} name="name" className="form-control"></Field>
-                            <ErrorMessage name="name" component="div"/>
 
-                        </div>
-                        <div>
-                            <label className="form-label">Author</label>
-                            <Field type={"text"} name="author" className="form-control"></Field>
-                            <ErrorMessage name="author" component="div"/>
+            {/*<h1>Create Book</h1>*/}
+            {/*<Formik initialValues={{*/}
+            {/*    name: '',*/}
+            {/*    author: '',*/}
+            {/*    description: '',*/}
+            {/*    quantity: '',*/}
+            {/*    price: '',*/}
+            {/*    image: null,*/}
+            {/*    category: JSON.stringify(categories[0])*/}
+            {/*}}*/}
+            {/*        validationSchema={validate}*/}
+            {/*        onSubmit={async (values, {setSubmitting, resetForm}) => {*/}
+            {/*            try {*/}
+            {/*                const imageUrl = await handleUpload(values);*/}
+            {/*                if (imageUrl) {*/}
+            {/*                    const obj = {...values, category: JSON.parse(values.category), image: imageUrl}*/}
+            {/*                    await createBook(obj)*/}
+            {/*                    console.log('Book information added successfully!');*/}
+            {/*                    resetForm();*/}
+            {/*                    setImagePreview(null);*/}
+            {/*                    navigate('/book');*/}
+            {/*                }*/}
+            {/*            } catch (error) {*/}
+            {/*                console.error('Error adding book information:', error);*/}
+            {/*            } finally {*/}
+            {/*                setSubmitting(false);*/}
+            {/*            }*/}
 
-                        </div>
-                        <div>
-                            <label className="form-label">Description</label>
-                            <Field type={"text"} name="description" className="form-control"></Field>
-                            <ErrorMessage name="description" component="div"/>
 
-                        </div>
-                        <div>
-                            <label className="form-label">Quantity</label>
-                            <Field type={"text"} name="quantity" className="form-control"></Field>
-                            <ErrorMessage name="quantity" component="div"/>
-                        </div>
-                        <div>
-                            <label className="form-label">Price</label>
-                            <Field type={"text"} name="price" className="form-control"></Field>
-                            <ErrorMessage name="price" component="div"/>
-                        </div>
-                        <div className="mb-3">
-                            <label className="form-label">Image</label>
-                            <input type="file" accept="image/jpeg, image/png" className="file-input"
-                                   onChange={(e) => handleImageChange(e, setFieldValue)}/>
-                            {imagePreview && (
-                                <img src={imagePreview} alt="Preview" className="file-preview"
-                                     style={{width: '450px', height: '250px'}}/>
-                            )}
-                        </div>
+            {/*        }*/}
+            {/*        }>*/}
+            {/*    {({isSubmitting, setFieldValue}) => (*/}
+            {/*        <Form>*/}
+            {/*            <div>*/}
+            {/*                <label className="form-label">Name</label>*/}
+            {/*                <Field type={"text"} name="name" className="form-control"></Field>*/}
+            {/*                <ErrorMessage name="name" component="div"/>*/}
 
-                        <div>
-                            <label className="form-label">Category</label>
-                            <Field name="category" as="select">
-                                {categories.map(category => (
-                                    <option key={category.id} value={JSON.stringify(category)}>{category.name}</option>
-                                ))}
-                            </Field>
-                        </div>
-                        <button type="submit" disabled={isSubmitting} className="dat">Lưu</button>
-                    </Form>
-                )}
+            {/*            </div>*/}
+            {/*            <div>*/}
+            {/*                <label className="form-label">Author</label>*/}
+            {/*                <Field type={"text"} name="author" className="form-control"></Field>*/}
+            {/*                <ErrorMessage name="author" component="div"/>*/}
 
-            </Formik>
+            {/*            </div>*/}
+            {/*            <div>*/}
+            {/*                <label className="form-label">Description</label>*/}
+            {/*                <Field type={"text"} name="description" className="form-control"></Field>*/}
+            {/*                <ErrorMessage name="description" component="div"/>*/}
+
+            {/*            </div>*/}
+            {/*            <div>*/}
+            {/*                <label className="form-label">Quantity</label>*/}
+            {/*                <Field type={"text"} name="quantity" className="form-control"></Field>*/}
+            {/*                <ErrorMessage name="quantity" component="div"/>*/}
+            {/*            </div>*/}
+            {/*            <div>*/}
+            {/*                <label className="form-label">Price</label>*/}
+            {/*                <Field type={"text"} name="price" className="form-control"></Field>*/}
+            {/*                <ErrorMessage name="price" component="div"/>*/}
+            {/*            </div>*/}
+            {/*            <div className="mb-3">*/}
+            {/*                <label className="form-label">Image</label>*/}
+            {/*                <input type="file" accept="image/jpeg, image/png" className="file-input"*/}
+            {/*                       onChange={(e) => handleImageChange(e, setFieldValue)}/>*/}
+            {/*                {imagePreview && (*/}
+            {/*                    <img src={imagePreview} alt="Preview" className="file-preview"*/}
+            {/*                         style={{width: '450px', height: '250px'}}/>*/}
+            {/*                )}*/}
+            {/*            </div>*/}
+
+            {/*            <div>*/}
+            {/*                <label className="form-label">Category</label>*/}
+            {/*                <Field name="category" as="select">*/}
+            {/*                    {categories.map(category => (*/}
+            {/*                        <option key={category.id} value={JSON.stringify(category)}>{category.name}</option>*/}
+            {/*                    ))}*/}
+            {/*                </Field>*/}
+            {/*            </div>*/}
+            {/*            <button type="submit" disabled={isSubmitting} className="dat">Lưu</button>*/}
+            {/*        </Form>*/}
+            {/*    )}*/}
+
+            {/*</Formik>*/}
         </>
     )
 }

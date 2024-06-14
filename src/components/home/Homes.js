@@ -29,10 +29,7 @@ const Homes = () => {
 
     const [isDropdownOpen, setDropdownOpen] = useState(false);
 
-    useEffect(() => {
-        console.log(avatar)
-        console.log(isLogin)
-    }, [])
+
     const toggleDropdown = (e) => {
         e.preventDefault()
         setDropdownOpen(!isDropdownOpen);
@@ -136,7 +133,7 @@ const Homes = () => {
                                     </div>
                                     {navList && (
                                         <div className="dropdown-content">
-                                            <Link to={`/account/profile2/${idAccount}`}>Thông Tin</Link>
+                                            <Link to={`/seller/`}>Danh sách người bán</Link>
                                             <Link to={`/totalIncome`}>Thống kê thu nhập</Link>
                                             <a style={{color: "black"}} onClick={logout}>Đăng xuất</a>
                                         </div>

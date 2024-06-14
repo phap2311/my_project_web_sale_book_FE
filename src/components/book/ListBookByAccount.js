@@ -2,7 +2,7 @@ import {useEffect, useState} from "react";
 import {Link, useParams} from "react-router-dom";
 import {findAllBookByAccountId} from "../../service/SellerService";
 import {deleteBook} from "../../service/BookService";
-import BookDelete from "./BookDelete";
+import "./book.css"
 
 const ListBookByAccount = () => {
     const [book, setBook] = useState([]);
@@ -36,50 +36,70 @@ const ListBookByAccount = () => {
     return (
         <>
             <div>
-                <Link to={"/createBook"}>Thêm sách</Link>
+                <Link to={"/createBook"} className="btn btn-success mt-2">Thêm sách</Link>
             </div>
             <div className="container mt-4">
                 <div className="row">
                     {book.map((item, index) => (
-                        <div key={item.id} className="col-md-4 mb-4">
-                            <div className="card">
+                        <div key={item.id} className="col-md-3 ">
                             <Link to={`/book/${item.id}`} className="card-link"
                                   style={{color: "black", textDecoration: "none"}}>
 
-                                <div className="card rounded">
-                                    <img
-                                        src={item.image}
-                                        className="card-img-top"
-                                        //  alt={item.name_house}
-                                        style={{
-                                            height: "150px",
-                                            objectFit: "cover",
-                                            borderTopLeftRadius: "10px",
-                                            borderTopRightRadius: "10px",
-                                        }}
-                                    />
-                                    <div className="card-body">
-
+                                <div className="product-loop-base">
+                                    <div class="product-thumbnail">
+                                        <img
+                                            src={item.image}
+                                        />
+                                    </div>
+                                    <div className="book-content">
                                         <h5 className="card-title">{item.name}</h5>
-                                        <p className="card-text">{formatPrice(item.price)}</p>
-
+                                        <p className="card-text" style={{color:"#5c9083", fontSize: 20}}>{formatPrice(item.price)}</p>
                                     </div>
                                 </div>
                             </Link>
-                                <button className="btn-warning" onClick={
-                                    () => handleShowModalDelete(item.id)
-                                }>delete
-                                </button>
-                            </div>
 
-
-
-                            <BookDelete show={show} setShow={setShow} onDeleteHandler={onDeleteHandler}/>
-
-                            <div className="card-footer">
-                            </div>
                         </div>
                     ))}
+                    {/*{book.map((item, index) => (*/}
+                    {/*    <div key={item.id} className="col-md-4 mb-4">*/}
+                    {/*        <div className="card">*/}
+                    {/*        <Link to={`/book/${item.id}`} className="card-link"*/}
+                    {/*              style={{color: "black", textDecoration: "none"}}>*/}
+
+                    {/*            <div className="card rounded">*/}
+                    {/*                <img*/}
+                    {/*                    src={item.image}*/}
+                    {/*                    className="card-img-top"*/}
+                    {/*                    //  alt={item.name_house}*/}
+                    {/*                    style={{*/}
+                    {/*                        height: "150px",*/}
+                    {/*                        objectFit: "cover",*/}
+                    {/*                        borderTopLeftRadius: "10px",*/}
+                    {/*                        borderTopRightRadius: "10px",*/}
+                    {/*                    }}*/}
+                    {/*                />*/}
+                    {/*                <div className="card-body">*/}
+
+                    {/*                    <h5 className="card-title">{item.name}</h5>*/}
+                    {/*                    <p className="card-text">{formatPrice(item.price)}</p>*/}
+
+                    {/*                </div>*/}
+                    {/*            </div>*/}
+                    {/*        </Link>*/}
+                    {/*            <button className="btn-warning" onClick={*/}
+                    {/*                () => handleShowModalDelete(item.id)*/}
+                    {/*            }>delete*/}
+                    {/*            </button>*/}
+                    {/*        </div>*/}
+
+
+
+                            {/*<BookDelete show={show} setShow={setShow} onDeleteHandler={onDeleteHandler}/>*/}
+
+                    {/*        <div className="card-footer">*/}
+                    {/*        </div>*/}
+                    {/*    </div>*/}
+                    {/*))}*/}
                 </div>
             </div>
 

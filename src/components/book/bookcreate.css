@@ -1,0 +1,12 @@
+/*.container {*/
+/*    max-width: 600px;*/
+/*}*/
+
+.form-label {
+    font-weight: bold;
+}
+
+.img-thumbnail {
+    max-width: 100%;
+    height: auto;
+}

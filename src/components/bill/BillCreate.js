@@ -4,6 +4,7 @@ import * as Yup from "yup";
 import {createBill} from "../../service/BillService";
 import Checkout from "./Checkout";
 import {PayPalScriptProvider} from "@paypal/react-paypal-js";
+import {toast} from "react-toastify";
 
 const validate = Yup.object().shape({
     payment: Yup.string().required("Vui lòng nhập phương thức chuyển"),
@@ -53,10 +54,13 @@ const BillCreate = () => {
                         validationSchema={validate}
                         onSubmit={async (values, {setSubmitting, resetForm}) => {
                             try {
-
-                                await createBill(values, accountId);
+                            const id = await createBill(values, accountId);
+                                console.log(id)
+                               // await createBill(values, accountId);
                                 resetForm();
-                                navigate("/book");
+
+                                navigate(`/bill/${id}`);
+                                toast.success("thanh toán thành công")
                             } catch (error) {
                                 console.error("Error creating bill:", error);
                             } finally {

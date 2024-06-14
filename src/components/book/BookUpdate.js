@@ -73,55 +73,56 @@ const BookUpdate = ()=>{
         }
         try {
             await editBook(value);
-            navigate("/book")
+            toast.success("cập nhật thành công")
+            navigate("/homes")
         } catch (error) {
             console.error('Error updating house information:', error);
         }
     };
     return (
         <>
-            <div className="container">
+            <div className="container mt-5 ">
 
                     <div className="row">
-                        <div className="col-3"></div>
-                        <div className="col-6">
+                        <div className="col-1"></div>
+                        <div className="col-10">
                             <Formik
                                 initialValues={data}
                                 enableReinitialize={true}
                                 validationSchema={validate}
                                 onSubmit={handleSubmit}
                             >
-                                <Form>
+                                <Form className="bg-light p-4 rounded shadow-sm">
                                     <div>
-                                        <label className="form-label">Name</label>
+                                        <label className="form-label">Tên sách</label>
                                         <Field type={"text"} name="name" className="form-control"></Field>
                                         <ErrorMessage name="name" component="div"  />
 
                                     </div>
                                     <div>
-                                        <label className="form-label">Author</label>
+                                        <label className="form-label">Tác giả</label>
                                         <Field type={"text"} name="author" className="form-control"></Field>
                                         <ErrorMessage name="author" component="div"  />
 
                                     </div>
                                     <div>
-                                        <label className="form-label">Description</label>
+                                        <label className="form-label">Mô tả</label>
                                         <Field type={"text"} name="description" className="form-control"></Field>
                                         <ErrorMessage name="description" component="div"  />
 
                                     </div>
                                     <div>
-                                        <label className="form-label">Quantity</label>
+                                        <label className="form-label">Số lượng</label>
                                         <Field type={"text"} name="quantity" className="form-control"></Field>
                                         <ErrorMessage name="quantity" component="div" />
                                     </div>
                                     <div>
-                                        <label className="form-label">Price</label>
+                                        <label className="form-label">Giá</label>
                                         <Field type={"text"} name="price" className="form-control"></Field>
                                         <ErrorMessage name="price" component="div"  />
                                     </div>
                                     <div>
-                                        <label className="form-label">Category</label>
+                                        <label className="form-label">Thể loại</label>
                                         <Field name="category" as="select">
                                             {categories.map(category => (
                                                 <option key={category.id} value={JSON.stringify(category)}>{category.name}</option>
@@ -129,7 +130,7 @@ const BookUpdate = ()=>{
                                         </Field>
                                     </div>
                                     <div className="mb-3">
-                                        <label className="form-label">Image</label>
+                                        <label className="form-label">Hình ảnh</label>
                                         <input type="file" accept="image/jpeg, image/png" className="file-input" onChange={(e) => handleImageChange(e)} />
                                         {imagePreview && (
                                             <img src={imagePreview} alt="Preview" className="file-preview" style={{ width: '550px', height: '250px' }} />
@@ -138,7 +139,7 @@ const BookUpdate = ()=>{
                                     <div className="row">
                                         <div className="mb-3 col-6 text-center">
                                             <button className="btn btn-primary col-6" type="button" onClick={handleUpload} disabled={!data.image || uploading}>
-                                                {uploading ? 'Uploading...' : 'Upload Image'}
+                                                {uploading ? 'Uploading...' : 'Tải ảnh lên'}
                                             </button>
                                         </div>
                                         <div className="mb-3 col-6 text-center">
@@ -152,7 +153,7 @@ const BookUpdate = ()=>{
                             </Formik>
 
                         </div>
-                        <div className="col-3"></div>
+                        <div className="col-1"></div>
                     </div>
 
 

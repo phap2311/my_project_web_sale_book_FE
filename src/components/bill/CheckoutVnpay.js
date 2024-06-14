@@ -5,11 +5,10 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import * as paymentService from "../../service/PaymentService";
 
+
 export default function CheckoutSuccessfully() {
     const navigate = useNavigate();
     const [resultPayment, setResultPayment] = useState("");
-
-
 
     useEffect(() => {
         console.log("Gọi API thanh toán");
@@ -19,8 +18,12 @@ export default function CheckoutSuccessfully() {
                 const id = parseInt(res.id);
                 const searchParams = new URLSearchParams(window.location.search);
                 const status = searchParams.get(`vnp_TransactionStatus`);
+
+
+
                 const re = await axios.get(`http://localhost:8080/auth/payment_info/${id}`, {
-                    params: { status: status },
+                    params: { status: status }
+
                 });
                 setResultPayment(re.data);
             } catch (error) {
@@ -33,7 +36,7 @@ export default function CheckoutSuccessfully() {
     useEffect(() => {
         console.log("Xử lý kết quả thanh toán");
         if (resultPayment === "success") {
-            navigate(`/`);
+            navigate(`/homes`);
             toast("Thanh toán thành công");
         } else if (resultPayment === "error") {
             navigate(`/cart`);

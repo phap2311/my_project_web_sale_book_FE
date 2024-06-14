@@ -29,7 +29,7 @@ const Cart = () => {
     }
     useEffect(() => {
         getTotalMoney()
-    })
+    },[])
     const getTotalMoney = () => {
         findAllMoney(accountId).then((res) => {
             setTotalMoney(res)

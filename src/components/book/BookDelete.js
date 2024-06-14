@@ -1,13 +1,16 @@
 import { Modal } from 'react-bootstrap';
+import {useNavigate} from "react-router-dom";
 
 const BookDelete = (props) => {
     const { show, setShow, onDeleteHandler } = props;
+    const navigate = useNavigate();
     const handleClose = () => {
         setShow(false);
     }
     const handleDelete = () => {
         onDeleteHandler();
         handleClose();
+        navigate("/homes")
     }
     return (
         <>

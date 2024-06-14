@@ -19,6 +19,7 @@ import SignUpSeller from "./components/login/SignUpSeller";
 
 import CheckoutSuccessfully from "./components/bill/CheckoutVnpay";
 import Homes from "./components/home/Homes";
+import Paypal from "./components/bill/Paypal";
 
 
 function App() {
@@ -33,19 +34,21 @@ function App() {
                     <Route path={"/createBook"} element={<BookCreate/>}></Route>
                     <Route path={"/editBook/:id"} element={<BookUpdate/>}></Route>
                     <Route path={"/cart/:accountId"} element={<Cart/>}></Route>
+                    <Route path={"/seller"} element={<Seller/>}></Route>
+                    <Route path={"/seller/:id"} element={<SellerDetail/>}></Route>
+                    <Route path={"/bookList/:id"} element={<ListBookByAccount/>}></Route>
+
                 </Route>
 
                 <Route path={"/bill/create/:accountId"} element={<BillCreate/>}></Route>
                 <Route path={"/bill/:id"} element={<Bill/>}></Route>
                 <Route path={"/login"} element={<Login/>}></Route>
                 <Route path={"/"} element={<Home/>}></Route>
-                <Route path={"/seller"} element={<Seller/>}></Route>
-                <Route path={"/seller/:id"} element={<SellerDetail/>}></Route>
-                <Route path={"/bookList/:id"} element={<ListBookByAccount/>}></Route>
                 <Route path={"/register/user"} element={<SignUpUser/>}></Route>
                 <Route path={"/register/seller"} element={<SignUpSeller/>}></Route>
                 <Route path={"/paymentCart/:id"} element={<CheckoutSuccessfully/>}></Route>
                 <Route path={"/bill/:id"} element={<Bill/>}></Route>
+                {/*<Route path={"/paypal"} element={<Paypal/>}></Route>*/}
 
             </Routes>
             <ToastContainer/>

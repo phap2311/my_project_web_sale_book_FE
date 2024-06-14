@@ -10,7 +10,7 @@ export const createPayment = async (price,id) => {
 export const getInfo = async () => {
     try {
         const res = await axios.get(`http://localhost:8080/api/auth/getInfo`);
-        console.log(res.data)
+
         return res.data;
     } catch (e) {
         console.log(e);

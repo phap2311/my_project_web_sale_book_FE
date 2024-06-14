@@ -1,0 +1,54 @@
+/* SellerDetail.css */
+.seller-card {
+    background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+    border: none;
+    border-radius: 15px;
+    transition: transform 0.3s;
+}
+
+.seller-card:hover {
+    transform: translateY(-10px);
+}
+
+.avatar-image {
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+    border: 5px solid #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.card-body {
+    padding: 2rem;
+}
+
+.font-weight-bold {
+    font-size: 1.2rem;
+    color: #333;
+}
+
+.custom-button {
+    background: #f7931e;
+    border: none;
+    transition: background 0.3s;
+    font-size: 1rem;
+}
+
+.custom-button:hover {
+    background: #498374;
+}
+
+p {
+    color: #555;
+    margin-bottom: 0.5rem;
+}
+
+hr {
+    border-top: 1px solid #ddd;
+}
+
+h2 {
+    color: #333;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+}

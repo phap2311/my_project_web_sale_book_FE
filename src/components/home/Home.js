@@ -30,10 +30,7 @@ const Home = () => {
 
     const [isDropdownOpen, setDropdownOpen] = useState(false);
 
-    useEffect(() => {
-        console.log(avatar)
-        console.log(isLogin)
-    }, [])
+
     const toggleDropdown = (e) => {
         e.preventDefault()
         setDropdownOpen(!isDropdownOpen);

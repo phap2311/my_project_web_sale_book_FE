@@ -1,16 +1,21 @@
 import {useEffect, useState} from "react";
 import {Link, useNavigate, useParams} from "react-router-dom";
-import {findBookDetailById} from "../../service/BookService";
-import {createCart, findAllCart} from "../../service/CartService";
+import {deleteBook, findBookDetailById} from "../../service/BookService";
+import {createCart, removeBooksToCart} from "../../service/CartService";
+import CartDelete from "../cart/CartDelete";
+import BookDelete from "./BookDelete";
 
 const BookDetail = () => {
     const [bookDetail, setBookDetail] = useState();
-    const [count, setCount] = useState(0);
+    const [count, setCount] = useState(1);
     const {id} = useParams();
     const navigate = useNavigate();
     const accountId = localStorage.getItem('idAccount');
     const [bill_id, setBill_id] = useState("")
     const [showFullDescription, setShowFullDescription] = useState(false);
+
+    const [isDelete, setIsDelete] = useState();
+    const [show, setShow] = useState(false);
 
 
     useEffect(() => {
@@ -56,24 +61,40 @@ const BookDetail = () => {
     const toggleDescription = () => {
         setShowFullDescription(!showFullDescription);
     };
+    const handleShowModalDelete = (id) => {
+        setIsDelete(id);
+        setShow(true);
+
+    }
+    const handleRemoveBook = () => {
+        deleteBook(isDelete).then((res) => {
+            setShow(false);
+
+        }).catch((error) => {
+            console.error("Error removing book from book:", error);
+        });
+
+    };
+
+
     return (
         <>
             <div className="container mt-4">
                 <div className="row">
                     {/* Hình ảnh */}
-                    <div className="col-lg-4 col-md-12 mb-4">
+                    <div className="col-lg-5 col-md-12 mb-4">
                         <div className="card">
                             <img
                                 src={bookDetail?.image}
                                 className="card-img-top"
                                 alt={bookDetail?.name}
-                                style={{height: "100%", objectFit: "cover"}}
+                                style={{height: "600px"}}
                             />
                         </div>
                     </div>
 
                     {/* Thông tin và thao tác */}
-                    <div className="col-lg-8 col-md-12 mb-4">
+                    <div className="col-lg-7 col-md-12 mb-4">
                         <div className="card h-100">
                             <div className="card-body d-flex flex-column justify-content-between">
                                 {/* Thông tin sách */}
@@ -135,8 +156,13 @@ const BookDetail = () => {
                                         <h6>Thông tin & khuyến mãi</h6>
                                         <p>Đổi trả hàng trong vòng 7 ngày</p>
                                         <p>Freeship toàn quốc từ 250.000đ</p>
-                                        <Link to={`/editBook/${id}`} className="btn btn-outline-primary">Chỉnh
+                                        <Link to={`/editBook/${id}`} className="btn btn-primary">Chỉnh
                                             sửa</Link>
+                                        {/*<Link to={`/createBook`} className="btn btn-primary m-lg-2">Đăng sách</Link>*/}
+                                        <button onClick={()=>handleShowModalDelete(bookDetail.id)} className="btn btn-primary m-lg-2">Xóa</button>
+                                        <BookDelete show={show} setShow={setShow}
+                                                    onDeleteHandler={handleRemoveBook}/>
+
                                     </div>
                                 </div>
                             </div>
