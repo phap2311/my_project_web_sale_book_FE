@@ -45,3 +45,14 @@ export const removeBooksToCart  = async (id) => {
         throw error;
     }
 }
+
+export const findAllCartByBook = async (accountId,bookId) => {
+
+    try {
+        const res = await axios.get(`http://localhost:8080/api/cart/${accountId}/book/${bookId}`);
+        return res.data;
+    } catch (error) {
+        console.error("Error fetching carts detail:", error);
+        throw error;
+    }
+}

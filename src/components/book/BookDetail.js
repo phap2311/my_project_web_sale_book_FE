@@ -1,9 +1,10 @@
 import {useEffect, useState} from "react";
 import {Link, useNavigate, useParams} from "react-router-dom";
 import {deleteBook, findBookDetailById} from "../../service/BookService";
-import {createCart, removeBooksToCart} from "../../service/CartService";
+import {createCart, findAllCart, findAllCartByBook, removeBooksToCart} from "../../service/CartService";
 import CartDelete from "../cart/CartDelete";
 import BookDelete from "./BookDelete";
+import {toast} from "react-toastify";
 
 const BookDetail = () => {
     const [bookDetail, setBookDetail] = useState();
@@ -32,27 +33,51 @@ const BookDetail = () => {
                 setBookDetail([]);
             });
     };
+
+
     const increase = () => {
-        setCount(count + 1);
+        if (count < 5)
+            setCount(count + 1);
     }
     const decrease = () => {
         if (count > 1) {
             setCount(count - 1);
         }
+
     }
+
+
+
+    // const handleAddToCart = () => {
+    //
+    //
+    //     const cart = {
+    //         quantity: count,
+    //
+    //     };
+    //     createCart(accountId, id, cart).then((res) => {
+    //         console.log("Added to cart successfully");
+    //         navigate(`/cart/${accountId}`)
+    //
+    //     }).catch((error) => {
+    //         console.error("Error adding to cart:", error);
+    //     });
+    // }
+
     const handleAddToCart = () => {
         const cart = {
             quantity: count,
-
         };
+
         createCart(accountId, id, cart).then((res) => {
             console.log("Added to cart successfully");
-            navigate(`/cart/${accountId}`)
-
+            navigate(`/cart/${accountId}`);
         }).catch((error) => {
-            console.error("Error adding to cart:", error);
+            toast.error("Không đủ sách để đặt")
         });
-    }
+    };
+
+
 
     const formatPrice = (price) => {
         return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + " đ";
@@ -159,7 +184,9 @@ const BookDetail = () => {
                                         <Link to={`/editBook/${id}`} className="btn btn-primary">Chỉnh
                                             sửa</Link>
                                         {/*<Link to={`/createBook`} className="btn btn-primary m-lg-2">Đăng sách</Link>*/}
-                                        <button onClick={()=>handleShowModalDelete(bookDetail.id)} className="btn btn-primary m-lg-2">Xóa</button>
+                                        <button onClick={() => handleShowModalDelete(bookDetail.id)}
+                                                className="btn btn-primary m-lg-2">Xóa
+                                        </button>
                                         <BookDelete show={show} setShow={setShow}
                                                     onDeleteHandler={handleRemoveBook}/>
 
