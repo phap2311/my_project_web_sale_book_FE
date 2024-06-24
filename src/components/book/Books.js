@@ -1,19 +1,45 @@
 import {useEffect, useState} from "react";
-import { findAllBook} from "../../service/BookService";
+import {findAllBook, findAllBookByName} from "../../service/BookService";
 import {Link} from "react-router-dom";
 import "./book.css"
 
-const Books = () => {
+const Books = ({searchQuery}) => {
     const [book, setBook] = useState([]);
-    useEffect(() => {
-        getAllBooks();
-    }, []);
+ //   const [searchQuery,setSearchQuery] = useState('')
+ //    useEffect(() => {
+ //        getAllBooks();
+ //    }, []);
 
+    useEffect(() => {
+        if (searchQuery) {
+            searchBooks(searchQuery);
+        } else {
+            getAllBooks();
+        }
+    }, [searchQuery]);
+    // useEffect(() => {
+    //     if (searchQuery) {
+    //         searchBooks(searchQuery);
+    //     } else {
+    //         getAllBooks();
+    //     }
+    // }, [searchQuery]);
     const getAllBooks = () => {
         findAllBook().then((res) => {
             setBook(res);
         });
     };
+
+    const searchBooks = (name) => {
+        findAllBookByName(name)
+            .then((res) => {
+                setBook(res);
+            })
+            .catch((error) => {
+                console.error("Error fetching books:", error);
+            });
+    };
+
 
     const formatPrice = (price) => {
         return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + " đ";

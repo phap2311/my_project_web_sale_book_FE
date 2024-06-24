@@ -36,6 +36,7 @@ const Login = () => {
                 localStorage.setItem("avatar", data.avatar);
                 localStorage.setItem("idAccount", data.id);
                 localStorage.setItem('authToken', data.token)
+                localStorage.setItem('role',data.authorities[0].authority)
                 setShowSuccessModal(true)
 
 

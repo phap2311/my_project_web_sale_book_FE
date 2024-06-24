@@ -8,7 +8,7 @@ import {
     faCartShopping, faCheck,
     faChevronDown,
     faCircleQuestion,
-    faMagnifyingGlass, faRegistered, faRightToBracket
+    faMagnifyingGlass,
 } from "@fortawesome/free-solid-svg-icons";
 import {findAllMoney} from "../../service/CartService";
 //import {findAllMoney} from "../../service/CartService";
@@ -20,6 +20,8 @@ const Home = () => {
     const [avatar, setAvatar] = useState(localStorage.getItem("avatar"))
     const navigate = useNavigate();
     const [navList, setNavList] = useState(false);
+    const role = localStorage.getItem('role');
+
 
 
     const logout = () => {
@@ -40,7 +42,7 @@ const Home = () => {
 
     useEffect(() => {
         getTotalMoney()
-    },[])
+    }, [])
     const getTotalMoney = () => {
         findAllMoney(idAccount).then((res) => {
             setTotalMoney(res)
@@ -57,7 +59,7 @@ const Home = () => {
                 <nav className="header_navbar">
                     <ul className="header_navbar-list">
                         <li className="header_navbar-item header_navbar-item--separate">
-                            <a style={{color:"white",textDecoration:"none"}} href="/homes">
+                            <a style={{color: "white", textDecoration: "none"}} href="/homes">
                                 Trang chủ
                             </a>
                         </li>
@@ -115,8 +117,10 @@ const Home = () => {
                                     </div>
                                     {navList && (
                                         <div className="dropdown-content">
-                                            <Link to={`/account/profile2/${idAccount}`}>Thông Tin</Link>
-                                            <Link to={`/totalIncome`}>Thống kê thu nhập</Link>
+                                            <Link to={`/seller/`}>Danh sách người bán</Link>
+                                            {role === 'ROLE_SELLER' && (
+                                                <Link to={`/bookList/${idAccount}`}>Sách của bạn</Link>)}
+                                            <Link to={`/bill/history/${idAccount}`}>Lịch sử mua hàng</Link>
                                             <a style={{color: "black"}} onClick={logout}>Đăng xuất</a>
                                         </div>
 
@@ -199,11 +203,11 @@ const Home = () => {
                     <div className="header_cart">
                         <i className="header_cart-icon">
                             <Link to={`/cart/${idAccount}`}>
-                                <FontAwesomeIcon style={{color:'darkcyan'}} icon={faCartShopping}/>
+                                <FontAwesomeIcon style={{color: 'darkcyan'}} icon={faCartShopping}/>
                             </Link>
                         </i>
                         <span className="header_cart-notice">{
-                           ((totalMoney && totalMoney.totalQuantity) > 0)? (totalMoney && totalMoney.totalQuantity) : 0
+                            ((totalMoney && totalMoney.totalQuantity) > 0) ? (totalMoney && totalMoney.totalQuantity) : 0
                         }</span>
                     </div>
                 </div>

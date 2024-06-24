@@ -11,6 +11,7 @@ import {
     faMagnifyingGlass, faRegistered, faRightToBracket
 } from "@fortawesome/free-solid-svg-icons";
 import {findAllMoney} from "../../service/CartService";
+import Books from "../book/Books";
 
 const Homes = () => {
     const isLogin = localStorage.getItem("isLogin");
@@ -19,6 +20,8 @@ const Homes = () => {
     const [avatar, setAvatar] = useState(localStorage.getItem("avatar"))
     const navigate = useNavigate();
     const [navList, setNavList] = useState(false);
+    const [searchQuery, setSearchQuery] = useState('');
+    const role = localStorage.getItem('role');
 
 
     const logout = () => {
@@ -65,6 +68,10 @@ const Homes = () => {
         setCurrentImageIndex((prevIndex) => (prevIndex - 1 + images.length) % images.length);
     };
 
+    const handleSearchChange = (e) => {
+        setSearchQuery(e.target.value);
+    };
+
     return (
         <div className="app">
             <header className="header" style={{backgroundImage: `url(${images[currentImageIndex]})`}}>
@@ -102,14 +109,7 @@ const Homes = () => {
                                     <FontAwesomeIcon icon={faBell}/>
                                 </i>
                                 Thông báo</a>
-                            {/*<div className="header_notify">*/}
-                            {/*    <header className="header_notify-header">*/}
-                            {/*        <h3>Thông báo mới nhận</h3>*/}
-                            {/*        <ul className="header_notify-list">*/}
 
-                            {/*        </ul>*/}
-                            {/*    </header>*/}
-                            {/*</div>*/}
                         </li>
                         <li className="header_navbar-item">
                             <a href="" className="header_navbar-item-link">
@@ -119,8 +119,6 @@ const Homes = () => {
                                 Trợ giúp</a>
 
                         </li>
-                        {/*header_navbar-item--separate*/}
-                        {/*<a className="header_login" style={{color:"white", textDecoration: "none", fontWeight:"normal"}} href="">Đăng Ký</a>*/}
 
 
                         {isLogin ? (
@@ -134,7 +132,13 @@ const Homes = () => {
                                     {navList && (
                                         <div className="dropdown-content">
                                             <Link to={`/seller/`}>Danh sách người bán</Link>
-                                            <Link to={`/totalIncome`}>Thống kê thu nhập</Link>
+                                            {role === 'ROLE_SELLER' && (
+                                                <Link to={`/bookList/${idAccount}`}>Sách của bạn</Link>
+                                            )}
+                                            {role === 'ROLE_USER' && (
+                                                <Link to={`/bill/history/${idAccount}`}>Lịch sử mua hàng</Link>
+                                            )}
+
                                             <a style={{color: "black"}} onClick={logout}>Đăng xuất</a>
                                         </div>
 
@@ -185,32 +189,10 @@ const Homes = () => {
                         <span className="logo_subtext">Tốt và Nhanh</span>
                     </div>
                     <div className="header_search">
-                        <input type="text" className="header_search-input" placeholder="Nhập để tìm kiếm sản phẩm"/>
-                        <div className="header_search-select">
-                            <span className="header_search-select-label">Trong shop</span>
-                            <i className="header_search-select-icon">
-                                <FontAwesomeIcon icon={faChevronDown}/>
-                            </i>
-                            <ul className="header_search-option">
-                                <li className="header_search-option-item">
-                                    <span>Trong shop</span>
-                                    <i>
-                                        <FontAwesomeIcon icon={faCheck}/>
-                                    </i>
-                                </li>
-                                <li className="header_search-option-item">
-                                    <span>Ngoài shop</span>
-                                    <i>
-                                        <FontAwesomeIcon icon={faCheck}/>
-                                    </i>
-                                </li>
-                            </ul>
-                        </div>
-                        <button className="header_search-btn">
-                            <i className="header_search-btn-icon" >
-                                <FontAwesomeIcon  icon={faMagnifyingGlass}/>
-                            </i>
-                        </button>
+                        <input type="text" className="header_search-input" placeholder="Nhập để tìm kiếm sản phẩm"
+                       value={searchQuery} onChange={handleSearchChange}
+                        />
+
                     </div>
 
                     {/*Cart layout*/}
@@ -224,9 +206,10 @@ const Homes = () => {
                              ((totalMoney && totalMoney.totalQuantity) > 0)? (totalMoney && totalMoney.totalQuantity) : 0
                         }</span>
                     </div>
+
                 </div>
             </header>
-
+            <Books searchQuery={searchQuery} />
 
             <Outlet></Outlet>
 

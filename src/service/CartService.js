@@ -56,3 +56,13 @@ export const findAllCartByBook = async (accountId,bookId) => {
         throw error;
     }
 }
+
+export const findAllCartByBill = async (billId,accountId) => {
+    try {
+        const res = await axios.get(`http://localhost:8080/api/cart/${billId}/account/${accountId}`);
+        return res.data;
+    } catch (error) {
+        console.error("Error fetching carts detail:", error);
+        throw error;
+    }
+}

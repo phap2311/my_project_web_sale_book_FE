@@ -1,14 +1,18 @@
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import {Link, useParams} from "react-router-dom";
 import {findAllBookByAccountId} from "../../service/SellerService";
 import {deleteBook} from "../../service/BookService";
 import "./book.css"
+import BookDelete from "./BookDelete";
 
 const ListBookByAccount = () => {
     const [book, setBook] = useState([]);
     const [isDelete, setIsDelete] = useState();
     const [show, setShow] = useState(false);
     const {id} = useParams();
+
+    const role = localStorage.getItem('role');
+
 
     useEffect(() => {
         getAllBooksByAccount();
@@ -20,11 +24,7 @@ const ListBookByAccount = () => {
         });
     };
 
-    const handleShowModalDelete = (idBook) => {
-        setIsDelete(idBook);
-        setShow(true);
 
-    }
     const onDeleteHandler = () => {
         deleteBook(isDelete).then((res) => {
             getAllBooksByAccount()
@@ -33,6 +33,20 @@ const ListBookByAccount = () => {
     const formatPrice = (price) => {
         return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + " đ";
     };
+    // const handleShowModalDelete = (id) => {
+    //     setIsDelete(id);
+    //     setShow(true);
+    //
+    // }
+    // const handleRemoveBook = () => {
+    //     deleteBook(isDelete).then((res) => {
+    //         setShow(false);
+    //
+    //     }).catch((error) => {
+    //         console.error("Error removing book from book:", error);
+    //     });
+    //
+    // };
     return (
         <>
             <div>
@@ -54,47 +68,34 @@ const ListBookByAccount = () => {
                                     <div className="book-content">
                                         <h5 className="card-title">{item.name}</h5>
                                         <p className="card-text" style={{color:"#5c9083", fontSize: 20}}>{formatPrice(item.price)}</p>
+
+                                        {/*{role === 'ROLE_SELLER' && (*/}
+                                        {/*    <Link to={`/editBook/${id}`} className="btn btn-primary">Chỉnh*/}
+                                        {/*        sửa</Link>*/}
+                                        {/*)}*/}
+
+                                        {/*/!*<Link to={`/createBook`} className="btn btn-primary m-lg-2">Đăng sách</Link>*!/*/}
+                                        {/*{role === 'ROLE_SELLER' && (*/}
+
+                                        {/*<button onClick={() => handleShowModalDelete(book.id)}*/}
+                                        {/*        className="btn btn-primary m-lg-2">Xóa*/}
+                                        {/*</button>*/}
+                                        {/*)}*/}
+
+                                        {/*<BookDelete show={show} setShow={setShow}*/}
+                                        {/*            onDeleteHandler={handleRemoveBook}/>*/}
+                                        {/*<BookDelete show={show} setShow={setShow} onDeleteHandler={onDeleteHandler}/>*/}
+
                                     </div>
                                 </div>
                             </Link>
 
                         </div>
                     ))}
-                    {/*{book.map((item, index) => (*/}
-                    {/*    <div key={item.id} className="col-md-4 mb-4">*/}
-                    {/*        <div className="card">*/}
-                    {/*        <Link to={`/book/${item.id}`} className="card-link"*/}
-                    {/*              style={{color: "black", textDecoration: "none"}}>*/}
-
-                    {/*            <div className="card rounded">*/}
-                    {/*                <img*/}
-                    {/*                    src={item.image}*/}
-                    {/*                    className="card-img-top"*/}
-                    {/*                    //  alt={item.name_house}*/}
-                    {/*                    style={{*/}
-                    {/*                        height: "150px",*/}
-                    {/*                        objectFit: "cover",*/}
-                    {/*                        borderTopLeftRadius: "10px",*/}
-                    {/*                        borderTopRightRadius: "10px",*/}
-                    {/*                    }}*/}
-                    {/*                />*/}
-                    {/*                <div className="card-body">*/}
-
-                    {/*                    <h5 className="card-title">{item.name}</h5>*/}
-                    {/*                    <p className="card-text">{formatPrice(item.price)}</p>*/}
-
-                    {/*                </div>*/}
-                    {/*            </div>*/}
-                    {/*        </Link>*/}
-                    {/*            <button className="btn-warning" onClick={*/}
-                    {/*                () => handleShowModalDelete(item.id)*/}
-                    {/*            }>delete*/}
-                    {/*            </button>*/}
-                    {/*        </div>*/}
 
 
 
-                            {/*<BookDelete show={show} setShow={setShow} onDeleteHandler={onDeleteHandler}/>*/}
+
 
                     {/*        <div className="card-footer">*/}
                     {/*        </div>*/}

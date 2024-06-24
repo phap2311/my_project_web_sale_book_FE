@@ -1,8 +1,9 @@
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import {findAllCart, findAllMoney, removeBooksToCart} from "../../service/CartService";
 import "./Cart.css"
 import CartDelete from "./CartDelete";
 import {Link, useParams} from "react-router-dom";
+import moment from "moment";
 
 
 
@@ -13,6 +14,7 @@ const Cart = () => {
 
     const [isDelete, setIsDelete] = useState();
     const [show, setShow] = useState(false);
+    const role = localStorage.getItem('role');
 
 
     useEffect(() => {
@@ -96,7 +98,7 @@ const Cart = () => {
                                                             <div className="col-3">
                                                                 <p>{item.name}</p>
                                                                 <p>Tác giả: {item.author}</p>
-                                                                <p>Ngày mua: {item.date_purchase}</p>
+                                                                <p>Ngày mua: {moment(item.date_purchase).format('DD/MM/YYYY')}</p>
                                                                 <div>
                                                                     <button style={{background: "orange"}}
                                                                             className="btn-warning" onClick={
@@ -150,9 +152,12 @@ const Cart = () => {
                                 {
                                     cartItem.length > 0 ? (
                                         <div className="text-center" style={{background: "orange"}}>
-                                            <Link to={`/bill/create/${accountId}`}
-                                                  // state={{totalMoney: totalMoney}}
-                                            > Tiến hành đặt hàng</Link>
+                                            {role === 'ROLE_USER' && (
+                                                <Link to={`/bill/create/${accountId}`}
+                                                    // state={{totalMoney: totalMoney}}
+                                                > Tiến hành đặt hàng</Link>
+                                            )}
+
                                             {/*<Link to={`/paypal`} state={{totalMoney: totalMoney}}> Tiến hành đặt hàng</Link>*/}
                                         </div>
                                     ) : (

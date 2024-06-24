@@ -20,6 +20,8 @@ import SignUpSeller from "./components/login/SignUpSeller";
 import CheckoutSuccessfully from "./components/bill/CheckoutVnpay";
 import Homes from "./components/home/Homes";
 import Paypal from "./components/bill/Paypal";
+import BillHistory from "./components/bill/BillHistory";
+import CartHistory from "./components/bill/CartHistory";
 
 
 function App() {
@@ -27,7 +29,7 @@ function App() {
         <div>
             <Routes>
                 <Route path={"/homes"} element={<Homes/>}>
-                    <Route path={"/homes"} element={<Books/>}></Route>
+                    {/*<Route path={"/homes"} element={<Books/>}></Route>*/}
                 </Route>
                 <Route path={"/"} element={<Home/>}>
                     <Route path={"/book/:id"} element={<BookDetail/>}></Route>
@@ -39,6 +41,8 @@ function App() {
                     <Route path={"/bookList/:id"} element={<ListBookByAccount/>}></Route>
                     <Route path={"/bill/create/:accountId"} element={<BillCreate/>}></Route>
                     <Route path={"/paypal"} element={<Paypal/>}></Route>
+                    <Route path={"/bill/history/:accountId"} element={<BillHistory/>}></Route>
+                    <Route path={"/bill/cart/:billId"} element={<CartHistory/>}></Route>
 
                 </Route>
 

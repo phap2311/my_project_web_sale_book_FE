@@ -89,7 +89,7 @@ const BillCreate = () => {
                                     navigate(`/bill/${id}`);
                                 }
 
-                                toast.success("thanh toán thành công")
+                              //  toast.success("thanh toán thành công")
                             } catch (error) {
                                 console.error("Error creating bill:", error);
                             } finally {
